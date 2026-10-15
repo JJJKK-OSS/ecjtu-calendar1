@@ -1,0 +1,10 @@
+{
+  "name": "ecjtu-github-calendar",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate": "node scripts/generate-calendar.mjs",
+    "test": "node --test"
+  }
+}
