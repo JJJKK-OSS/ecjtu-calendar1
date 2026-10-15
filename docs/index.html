@@ -3,10 +3,34 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>课表尚未生成</title>
+  <title>我的课表订阅</title>
+  <style>
+    :root { color-scheme: light dark; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #f3f6fb; color: #152033; }
+    main { width: min(92vw, 520px); box-sizing: border-box; padding: 32px; border-radius: 24px; background: white; box-shadow: 0 18px 50px #20304a1a; }
+    h1 { margin: 0 0 10px; font-size: 28px; }
+    p { line-height: 1.65; color: #566174; }
+    .button { display: block; margin: 20px 0 12px; padding: 15px 18px; border-radius: 14px; text-align: center; text-decoration: none; font-weight: 700; background: #1473e6; color: white; }
+    button { width: 100%; padding: 13px; border: 1px solid #cbd3df; border-radius: 12px; background: transparent; color: inherit; font: inherit; }
+    small { display: block; margin-top: 22px; color: #798395; }
+    @media (prefers-color-scheme: dark) { body { background: #10141c; color: #eef3fb; } main { background: #1b2230; } p { color: #b9c3d2; } }
+  </style>
 </head>
 <body>
-  <h1>课表尚未生成</h1>
-  <p>请先在 GitHub Actions 中手动运行“更新课表日历”。</p>
+  <main>
+    <h1>我的课表</h1>
+    <p>共 219 节课程。点击下面按钮，在 iPhone 上添加为订阅日历；Apple Watch 会随 iPhone/iCloud 同步。</p>
+    <a class="button" id="subscribe" href="calendar.ics">在 iPhone 上订阅</a>
+    <button id="copy" type="button">复制 HTTPS 订阅链接</button>
+    <small>上次更新：2026/10/15 17:01:57（北京时间）</small>
+  </main>
+  <script>
+    const httpsUrl = new URL("calendar.ics", location.href).href;
+    document.querySelector("#subscribe").href = httpsUrl.replace(/^https:/, "webcal:");
+    document.querySelector("#copy").addEventListener("click", async (event) => {
+      await navigator.clipboard.writeText(httpsUrl);
+      event.currentTarget.textContent = "已复制";
+    });
+  </script>
 </body>
 </html>
